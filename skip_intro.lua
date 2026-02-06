@@ -4,6 +4,7 @@ local msg = require "mp.msg"
 -- Options that can be loaded from .conf
 local user_options = {
     skip_chapter = true,
+	absolute_intro_skip = true,
     op_patterns = "OP|[Oo]pening$|^[Oo]pening:|[Oo]pening [Cc]redits",
     other_patterns = "",
     ed_patterns = "ED|[Ee]nding$|^[Ee]nding:|[Ee]nding [Cc]redits|[Cc]redits"
@@ -87,7 +88,7 @@ local function check_chapter(_, chapter)
         prompt_msg(label, 2000)
     end
 
-    if chapter:match("[Ii]ntro") and intro_count == 1 then
+    if chapter:match("[Ii]ntro") and intro_count == 1 and user_options.absolute_intro_skip then -- When only intro is found in the chapter list
         skip_current("Skipped Intro")
         return
     end
